@@ -1,6 +1,15 @@
 import 'jest';
 import * as complexOperations from './complexOperations';
 
+/* Note: In the execution of these functions, line 66 of complexOperations.js is a line
+which I cannot access because the function does a previous check of the figure which
+makes her take another path, therefore I can't cover her*/
+
+/* Note 2: Both in this file and in the mock test file there is a test that tests
+a case of sending arguments in the wrong order, and that test fails, that failure is intentional
+I'm looking for errors of the type "toThrowError" to put but none seem to expect the type
+error message that appears (type error).*/
+
 describe('complexOperation - Unit Tests', () => {
 
   describe('checkEmail', () => {
@@ -44,7 +53,7 @@ describe('complexOperation - Unit Tests', () => {
       expect(complexOperations.calculateArea('')).toEqual(` is not supported`);
     });
     it('Testing sending arguments in the wrong order', () => {
-      expect(complexOperations.calculateArea(2, 'square')).toEqual('number1 and number2 should be numbers');
+      expect(complexOperations.calculateArea(2, 'square')).toThrow(TypeError);
     });
     it('Testing validations of numbers', () => {
       expect(complexOperations.calculateArea('rectangle', '1', '5')).toEqual('number1 and number2 should be numbers');
@@ -118,9 +127,11 @@ describe('complexOperation - Unit Tests', () => {
       expect(complexOperations.sortArrayOfObjectsByKey([{animal: 'cat', age: '2'}], 'cat')).not.toEqual([{animal: 'cat', age: '2'}]);
       expect(complexOperations.sortArrayOfObjectsByKey([{animal: 'cat', age: '2'}], '2')).not.toEqual([{animal: 'cat', age: '2'}]);
     });
-    it('Testing ideal scenarios with 2 objets', () => {  
-      expect(complexOperations.sortArrayOfObjectsByKey([{animal: 'cat', age: '2'}, {model: 'ford', year: '1992'}], 'animal')).toEqual([{animal: 'cat', age: '2'}]);
-      expect(complexOperations.sortArrayOfObjectsByKey([{animal: 'cat', age: '2'}, {model: 'ford', year: '1992'}], 'model')).toEqual([{animal: 'cat', age: '2'}]);
+    it('Testing ideal scenarios with 2 objets or more', () => {  
+      expect(complexOperations.sortArrayOfObjectsByKey([{animal: 'cat', age: '2'}, {animal: 'dog', year: '2020'}], 'animal')).toEqual([{animal: 'cat', age: '2'}, {animal: 'dog', year: '2020'}]);
+      expect(complexOperations.sortArrayOfObjectsByKey([{animal: 'cat', age: '2'}, {animal: 'dog', year: '2020'}], 'year')).not.toEqual([{animal: 'cat', age: '2'}, {animal: 'dog', year: '2020'}]);
+      expect(complexOperations.sortArrayOfObjectsByKey([{animal: 'cat', age: '2'}, {animal: 'dog', year: '2020'}, {animal: 'bird', size: '40 cm'}], 'animal')).toEqual([{animal: 'bird', size: '40 cm'}, {animal: 'cat', age: '2'}, {animal: 'dog', year: '2020'}]);
+      expect(complexOperations.sortArrayOfObjectsByKey([{animal: 'cat'}, {animal: 'cat'}], 'animal')).toEqual([{"animal": "cat"}, {"animal": "cat"}]);
     });
     it('Testing validations of array / string as an argument', () => {
       expect(complexOperations.sortArrayOfObjectsByKey('', 'animal')).toEqual('The first param should be an array');

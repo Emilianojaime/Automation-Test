@@ -53,8 +53,9 @@ export const calculateArea = (figure, number1, number2 = 0) => {
   }
   switch(figure.toLowerCase()) {
     case 'rectangle':
-    case 'square':
       return multip(number1, number2);
+    case 'square':
+      return multip(number1, number1);
     case 'triangle':
       return division(multip(number1, number2), 2);
     case 'circle':

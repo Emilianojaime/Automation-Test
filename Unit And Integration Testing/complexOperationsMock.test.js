@@ -2,6 +2,14 @@ import 'jest';
 import * as complexOperations from './complexOperations';
 import * as basicOperations from './basicOperations'
 
+/* Note: Regarding the problem in this test, it will not be possible to cover 100%
+of the BasicOperations function because we are going to be mocking it therefore it never goes
+to enter to execute the lines of code, that is why the percentage of coverage of
+this file is under */
+
+/* Note 2: On the other hand some problems or lines that could not be accessed in the file
+"CompleOperations.test.js" that does not use Mock thanks to its use I can now run them (line 65 of BasicOperations). */
+
 describe('complexOperation - "Mock Tests"', () => {
 
   describe('checkEmail', () => {
@@ -81,7 +89,7 @@ describe('complexOperation - "Mock Tests"', () => {
       jest.spyOn(basicOperations, 'isSupportedFigure').mockReturnValue(false);
       jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
       jest.spyOn(basicOperations, 'multip').mockReturnValue(4);
-      expect(complexOperations.calculateArea(2, 'square')).toEqual('2 is not supported');
+      expect(complexOperations.calculateArea(2, 'square')).toEqual(`2 is not supported`);
     });
     it('Testing validations of numbers', () => {
       jest.spyOn(basicOperations, 'isSupportedFigure').mockReturnValue(true);
@@ -110,28 +118,28 @@ describe('complexOperation - "Mock Tests"', () => {
       jest.restoreAllMocks();
     })
 
-    it('Testing Ideal Scenario 1', () => {
+    it('Testing Ideal Scenario (1)', () => {
       jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
       jest.spyOn(basicOperations, 'sum').mockReturnValue(8);
       expect(complexOperations.sumGratherThan(4, 4, 5)).toEqual(`8 is grather than 5`);
     });
-    it('Testing Ideal Scenario 2', () => {
+    it('Testing Ideal Scenario (2)', () => {
       jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
       jest.spyOn(basicOperations, 'sum').mockReturnValue(3);
       expect(complexOperations.sumGratherThan(1, 2, 5)).toEqual(`3 is less than 5`);
     });
-    it('Testing Negative numbers 1', () => {
+    it('Testing Negative numbers (1)', () => {
       jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
       jest.spyOn(basicOperations, 'sum').mockReturnValue(-3);
       expect(complexOperations.sumGratherThan(-1, -2, -1)).toEqual(`-3 is less than -1`);
     });
-    it('Testing Negative numbers 2', () => {
+    it('Testing Negative numbers (2)', () => {
        jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
        jest.spyOn(basicOperations, 'sum').mockReturnValue(-1);
        expect(complexOperations.sumGratherThan(1, -2, 0)).toEqual(`-1 is less than 0`);
        
      });
-     it('Testing Negative numbers 3', () => {
+     it('Testing Negative numbers (3)', () => {
        jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
        jest.spyOn(basicOperations, 'sum').mockReturnValue(-10);
        expect(complexOperations.sumGratherThan(0, -10, -10)).toEqual(`-10 is less than -10`);
@@ -217,6 +225,7 @@ describe('complexOperation - "Mock Tests"', () => {
       jest.spyOn(basicOperations, 'sortArrayByKey').mockReturnValue([{animal: 'cat', age: '2'}]);
       expect(complexOperations.sortArrayOfObjectsByKey([{animal: 'cat', age: '2'}, {model: 'ford', year: '1992'}], 'animal')).toEqual([{animal: 'cat', age: '2'}]);
       expect(complexOperations.sortArrayOfObjectsByKey([{animal: 'cat', age: '2'}, {model: 'ford', year: '1992'}], 'model')).toEqual([{animal: 'cat', age: '2'}]);
+      
     });
     it('Testing validations (1) of array / string as an argument', () => {
       jest.spyOn(basicOperations, 'isArray').mockReturnValue(false);
@@ -251,35 +260,35 @@ describe('complexOperation - "Mock Tests"', () => {
       jest.restoreAllMocks();
     })
 
-    it('Testing Ideal Scenario', () => {
+    it('Testing Ideal Scenario (1)', () => {
       jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
       jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
       jest.spyOn(basicOperations, 'getOddNumbersFromArray').mockReturnValue([1, 3]);
       jest.spyOn(basicOperations, 'getEvenNumbersFromArray').mockReturnValue([2, 4]);
       expect(complexOperations.numberOfOddAndEvenNumbers([1, 2, 3, 4])).toEqual({ odd: 2, even: 2 });
     });
-    it('Testing Ideal Scenario', () => {
+    it('Testing Ideal Scenario (2)', () => {
       jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
       jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
       jest.spyOn(basicOperations, 'getOddNumbersFromArray').mockReturnValue([1, 3]);
       jest.spyOn(basicOperations, 'getEvenNumbersFromArray').mockReturnValue([2]);
       expect(complexOperations.numberOfOddAndEvenNumbers([1, 2, 3])).toEqual({ odd: 2, even: 1 });
     });
-    it('Testing Ideal Scenario', () => {
+    it('Testing Ideal Scenario (3)', () => {
       jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
       jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
       jest.spyOn(basicOperations, 'getOddNumbersFromArray').mockReturnValue([1]);
       jest.spyOn(basicOperations, 'getEvenNumbersFromArray').mockReturnValue([2]);
       expect(complexOperations.numberOfOddAndEvenNumbers([1, 2])).toEqual({ odd: 1, even: 1 });
     });
-    it('Testing Ideal Scenario', () => {
+    it('Testing Ideal Scenario (4)', () => {
       jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
       jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
       jest.spyOn(basicOperations, 'getOddNumbersFromArray').mockReturnValue([]);
       jest.spyOn(basicOperations, 'getEvenNumbersFromArray').mockReturnValue([0, 2]);
       expect(complexOperations.numberOfOddAndEvenNumbers([0, 2])).toEqual({ odd: 0, even: 2 });
     });
-    it('Testing Ideal Scenario', () => {
+    it('Testing Ideal Scenario (5)', () => {
       jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
       jest.spyOn(basicOperations, 'isNumber').mockReturnValue(true);
       jest.spyOn(basicOperations, 'getOddNumbersFromArray').mockReturnValue([-1]);

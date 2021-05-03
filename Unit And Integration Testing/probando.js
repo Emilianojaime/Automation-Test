@@ -1,16 +1,16 @@
-const numberOfOddAndEvenNumbers = (array) => {
+const sortArrayOfObjectsByKey = (array, key) => {
   if (!isArray(array)) {
-    return 'The param should be an array';
+    return 'The first param should be an array';
   }
-  const elementsAreNumbers = array.every(isNumber);
-  if (!elementsAreNumbers) {
-    return `The array should have only numbers`;
+  if (!key || !isString(key)) {
+    return 'The second param should be an string';
   }
-  return {
-    odd: getOddNumbersFromArray(array).length,
-    even: getEvenNumbersFromArray(array).length
+  if (!arrayElementsAreObjectWithKey(array, key)) {
+    return `Some elements in the array does not have the ${key} property`;
   }
+  return sortArrayByKey(array, key);
 }
+
 
 
 // Simple Functions 
